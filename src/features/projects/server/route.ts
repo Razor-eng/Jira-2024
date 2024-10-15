@@ -7,7 +7,6 @@ import { ID, Query } from "node-appwrite";
 import { z } from "zod";
 import { createProjectSchema, updateProjectSchema } from "../schemas";
 import { Project } from "../types";
-import { MemberRole } from "@/features/members/types";
 import { endOfMonth, startOfMonth, subMonths } from "date-fns";
 import { TaskStatus } from "@/features/tasks/types";
 
@@ -208,7 +207,7 @@ const app = new Hono()
                 userId: user.$id
             });
 
-            if (!member)/*|| member.role !== MemberRole.ADMIN*/ {
+            if (!member) {
                 return c.json({ error: "Unauthorized" }, 401);
             }
 
