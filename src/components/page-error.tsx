@@ -6,7 +6,7 @@ interface PageErrorProps {
 
 const PageError = ({ message = "Something went wrong" }: PageErrorProps) => {
     return (
-        <div className='h-full flex flex-col items-center justify-center'>
+        <div className='h-96 flex flex-col items-center justify-center'>
             <AlertTriangle className='size-6 text-muted-foreground mb-2' />
             <p className="text-sm text-muted-foreground">
                 {message}
