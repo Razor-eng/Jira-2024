@@ -56,7 +56,7 @@ const UserButton = () => {
                 <DropdownMenuItem
                     className='h-10 flex items-center justify-center text-zinc-500 font-medium cursor-pointer'
                 >
-                    <Link href={`/user/${user.$id}`}>
+                    <Link href={`/user/${user.$id}`} className='flex items-center'>
                         <UserRound className='size-4 mr-2' />
                         Profile
                     </Link>
