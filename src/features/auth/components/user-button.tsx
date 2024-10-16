@@ -2,11 +2,13 @@
 
 import React from 'react'
 import { useCurrent } from '../api/use-current';
-import { Loader, LogOut } from 'lucide-react';
+import { Loader, LogOut, UserRound } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import DottedSeparator from '@/components/dotted-separator';
 import { useLogout } from '../api/use-logout';
+import { Separator } from '@/components/ui/separator';
+import Link from 'next/link';
 
 const UserButton = () => {
     const { data: user, isLoading } = useCurrent();
@@ -51,6 +53,15 @@ const UserButton = () => {
                     </div>
                 </div>
                 <DottedSeparator className='mb-1' />
+                <DropdownMenuItem
+                    className='h-10 flex items-center justify-center text-zinc-500 font-medium cursor-pointer'
+                >
+                    <Link href={`/user/${user.$id}`}>
+                        <UserRound className='size-4 mr-2' />
+                        Profile
+                    </Link>
+                </DropdownMenuItem>
+                <Separator />
                 <DropdownMenuItem
                     onClick={() => logout()}
                     className='h-10 flex items-center justify-center text-zinc-500 font-medium cursor-pointer'

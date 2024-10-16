@@ -6,12 +6,14 @@ import PageError from "@/components/page-error";
 import PageLoader from "@/components/PageLoader";
 import { ProjectList } from "@/components/project-list";
 import { TaskList } from "@/components/task-list";
+import { Button } from "@/components/ui/button";
 import { useGetMembers } from "@/features/members/api/use-get-members";
 import { useGetProjects } from "@/features/projects/api/use-get-projects";
-import { useCreateProjectModal } from "@/features/projects/hooks/use-create-project-modal";
 import { useGetTasks } from "@/features/tasks/api/use-get-tasks";
 import { useGetWorkspaceAnalytics } from "@/features/workspaces/api/use-get-workspace-analytics";
+import { useCreateWorkspaceModal } from "@/features/workspaces/hooks/use-create-workspace-modal";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
+import Link from "next/link";
 
 const WorkspaceClientPage = () => {
     const workspaceId = useWorkspaceId();
@@ -20,7 +22,7 @@ const WorkspaceClientPage = () => {
     const { data: projects, isLoading: isProjectsLoading } = useGetProjects({ workspaceId });
     const { data: members, isLoading: isMembersLoading } = useGetMembers({ workspaceId });
 
-    const { open: createProject } = useCreateProjectModal();
+    const { open: createWorkspace } = useCreateWorkspaceModal();
 
     const isLoading = isAnalyticsLoading || isMembersLoading || isProjectsLoading || isTasksLoading;
     const noData = !analytics || !members || !projects || !tasks;
@@ -30,7 +32,29 @@ const WorkspaceClientPage = () => {
     }
 
     if (noData) {
-        return <PageError message="Failed to load workspace data" />
+        return (
+            <div className="flex flex-col gap-6 items-center">
+                <PageError message="Failed to load workspace data" />
+                <div className="flex items-center gap-4">
+                    <Button
+                        variant={"secondary"}
+                        size={"lg"}
+                        asChild
+                    >
+                        <Link href={"/"}>
+                            Home
+                        </Link>
+                    </Button>
+                    <Button
+                        variant={"teritary"}
+                        size={"lg"}
+                        onClick={createWorkspace}
+                    >
+                        Create
+                    </Button>
+                </div>
+            </div>
+        )
     }
 
     return (
